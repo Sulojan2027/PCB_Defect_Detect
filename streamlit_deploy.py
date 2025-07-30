@@ -7,7 +7,7 @@ import tempfile
 import os
 
 # Load your trained model
-model = YOLO("best.pt")  # <-- Replace with your actual path
+model = YOLO("trained_model.pt")  # <-- Replace with your actual path
 
 st.title("📦 PCB Defect Detection using YOLOv8")
 st.markdown("Upload an image to detect PCB defects")
