@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Secrets (Kaggle API token, Streamlit secrets)
+.env
+kaggle.json
+.streamlit/secrets.toml
+
+# Datasets (data/raw is a symlink to the kagglehub cache; data/processed is generated)
+data/
+
+# Training / evaluation outputs and experiment trackers
+runs/
+wandb/
+mlruns/
+test_predictions/
+
+# Base weights Ultralytics downloads into the working directory
+yolo*.pt
+rtdetr*.pt
+
+# Exported models
+*.onnx
+*.engine
+*.torchscript
+*_openvino_model/
+
+# Logs (e.g. nohup output from the Streamlit app)
+*.log
+logs.txt
