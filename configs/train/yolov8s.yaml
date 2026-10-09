@@ -1,0 +1,22 @@
+# Baseline from the original notebook (YOLOv8s, 180 epochs, mixup 0.3).
+# Everything under `train:` is passed straight to Ultralytics `model.train()`,
+# see https://docs.ultralytics.com/modes/train/#train-settings for all keys.
+# Any key can be overridden from the CLI, e.g. `epochs=1 device=cpu`.
+
+model: yolov8s.pt
+
+train:
+  data: data/processed/pcb.yaml
+  epochs: 180
+  batch: 16
+  imgsz: 640
+  # The notebook used optimizer=auto, which ignored lr0 and picked
+  # AdamW(lr=0.001, momentum=0.9). Pinned explicitly here so lr0 takes effect.
+  optimizer: AdamW
+  lr0: 0.001
+  momentum: 0.9
+  lrf: 0.0001
+  mixup: 0.3
+  seed: 0
+  project: runs/pcb
+  name: yolov8s

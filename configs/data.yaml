@@ -1,0 +1,29 @@
+# Dataset preparation config, consumed by `python -m pcb_defect.prepare_data`.
+#
+# Source: https://www.kaggle.com/datasets/akhatova/pcb-defects
+# Download it and point `raw_dir` at the PCB_DATASET folder, which contains
+# `images/<Defect_type>/*.jpg` and `Annotations/<Defect_type>/*.xml` (Pascal VOC).
+
+raw_dir: data/raw/PCB_DATASET
+output_dir: data/processed
+
+# Order defines the YOLO class index.
+classes:
+  - missing_hole
+  - mouse_bite
+  - open_circuit
+  - short
+  - spur
+  - spurious_copper
+
+# Images are resized (stretched, aspect ratio NOT kept) to [width, height]
+# before being written, as in the original notebook. Set to null to keep the
+# full-resolution images and let Ultralytics letterbox them at train time.
+resize: [640, 640]
+
+# The notebook used 0.95/0.05 with no seed, which left 1 image for test.
+split:
+  train: 0.8
+  val: 0.1
+  test: 0.1
+seed: 42
