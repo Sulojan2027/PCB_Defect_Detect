@@ -6,3 +6,4 @@ kagglehub
 matplotlib
 streamlit>=1.40
 pillow
+huggingface_hub

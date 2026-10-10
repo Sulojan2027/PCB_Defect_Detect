@@ -1,9 +1,13 @@
 """Streamlit demo: upload a PCB image and see detected defects.
 
-    python -m streamlit run app/streamlit_app.py   (from the repo root)
+    streamlit run app/streamlit_app.py
 """
 
+import os
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import pandas as pd
 import streamlit as st
@@ -11,7 +15,17 @@ from PIL import Image
 
 from src.models import load_model
 
-DEFAULT_WEIGHTS = "runs/pcb/yolov8s/weights/best.pt"
+LOCAL_WEIGHTS = "runs/pcb/yolov8s/weights/best.pt"
+
+
+@st.cache_resource
+def default_weights() -> str:
+    repo_id = os.environ.get("HF_MODEL_REPO")
+    if not repo_id:
+        return LOCAL_WEIGHTS
+    from huggingface_hub import hf_hub_download
+
+    return hf_hub_download(repo_id, os.environ.get("HF_MODEL_FILE", "best.pt"))
 
 
 @st.cache_resource
@@ -23,8 +37,8 @@ st.title("PCB Defect Detection")
 st.markdown("Upload an image to detect PCB defects")
 
 with st.sidebar:
-    weights = st.text_input("Model weights", DEFAULT_WEIGHTS)
-    conf = st.slider("Confidence threshold", 0.05, 0.95, 0.25, 0.05)
+    weights = st.text_input("Model weights", default_weights())
+    conf = st.slider("Confidence threshold", 0.05, 0.95, 0.30, 0.05)
     iou = st.slider("NMS IoU threshold", 0.1, 0.95, 0.7, 0.05)
 
 uploaded_file = st.file_uploader("Upload PCB image", type=["jpg", "jpeg", "png"])

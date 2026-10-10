@@ -25,7 +25,11 @@ This project leverages **YOLOv8** to detect manufacturing defects in PCBs. It in
 │   ├── evaluate.py             # Evaluate weights on a split, save metrics.json
 │   ├── predict.py              # Batch inference, saves annotated images
 │   └── models.py               # Loads YOLO or RT-DETR weights
-├── app/streamlit_app.py        # Streamlit web app for real-time inference
+├── app/
+│   ├── streamlit_app.py        # Streamlit web app for real-time inference
+│   └── requirements.txt        # CPU-only deps for Streamlit Community Cloud
+├── deploy/hf_model/README.md   # Model card for the Hugging Face weights repo
+├── packages.txt                # System packages for Streamlit Community Cloud
 ├── test_images/                # Sample test images for inference
 ├── test_predictions/           # Saved prediction outputs
 ├── snippets/                   # App screenshots, result plots, inference/ sample outputs
@@ -79,10 +83,18 @@ To try another architecture, copy `configs/train/yolov8s.yaml` and change `model
 ### Streamlit app
 
 ```bash
-python -m streamlit run app/streamlit_app.py
+streamlit run app/streamlit_app.py
 ```
 
 Upload a `.jpg`, `.jpeg`, or `.png` image to see predicted defect boxes. Weights path and confidence/IoU thresholds are set in the sidebar.
+
+### Deployment
+
+The app is deployed on **Streamlit Community Cloud**. The trained weights are hosted on the Hugging Face Hub at [`Sulojan/pcb-defect-yolov8s`](https://huggingface.co/Sulojan/pcb-defect-yolov8s). When the `HF_MODEL_REPO` environment variable is set, the app downloads the weights from there instead of using the local `runs/` folder.
+
+- [`app/requirements.txt`](app/requirements.txt): CPU-only dependencies the cloud installs (the root `requirements.txt` is for local GPU training)
+- [`packages.txt`](packages.txt): system libraries OpenCV needs
+- [`deploy/hf_model/README.md`](deploy/hf_model/README.md): model card for the Hub repo
 
 ### Example output
 
