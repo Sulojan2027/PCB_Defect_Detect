@@ -1,5 +1,9 @@
-
 # 🟩 PCB_Defect_Detect
+
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://pcb-defectdetect.streamlit.app/)
+[![Model on Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Model-Sulojan%2Fpcb--defect--yolov8s-yellow)](https://huggingface.co/Sulojan/pcb-defect-yolov8s)
+
+**Live demo: <https://pcb-defectdetect.streamlit.app/>**: upload a PCB image and get its defects detected in the browser.
 
 This repository contains custom PCB-Defect_Detection model powered by YOLOv8. And also have real-time **Printed Circuit Board (PCB) defect detection** system which enables users to upload PCB images and automatically identifies defects using a trained object detection model, with deployment using **Streamlit** for a simple web interface.
 
@@ -90,7 +94,7 @@ Upload a `.jpg`, `.jpeg`, or `.png` image to see predicted defect boxes. Weights
 
 ### Deployment
 
-The app is deployed on **Streamlit Community Cloud**. The trained weights are hosted on the Hugging Face Hub at [`Sulojan/pcb-defect-yolov8s`](https://huggingface.co/Sulojan/pcb-defect-yolov8s). When the `HF_MODEL_REPO` environment variable is set, the app downloads the weights from there instead of using the local `runs/` folder.
+The app is live at **<https://pcb-defectdetect.streamlit.app/>** on Streamlit Community Cloud. The trained weights are hosted on the Hugging Face Hub at [`Sulojan/pcb-defect-yolov8s`](https://huggingface.co/Sulojan/pcb-defect-yolov8s). When the `HF_MODEL_REPO` environment variable is set, the app downloads the weights from there instead of using the local `runs/` folder.
 
 - [`app/requirements.txt`](app/requirements.txt): CPU-only dependencies the cloud installs (the root `requirements.txt` is for local GPU training)
 - [`packages.txt`](packages.txt): system libraries OpenCV needs
